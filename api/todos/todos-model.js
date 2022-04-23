@@ -1,33 +1,35 @@
 const db = require("../../data/db-config.js")
 
-const getAll = () => {
-    return db("todos")
+const getTodos = (user_id) => {
+    console.log(user_id)
+    const todos = db("todos").where({user_id})
+    console.log(todos)
+    return todos
 }
 
-// const getById = id => {
-//     return db("accounts").where("id",id).first()    
-// }
+const getTodo = (todo_id) => {
+    return db("todos").where({todo_id}).first()
+}
 
-// const create = async ({name, budget}) => {
-//     name = name.trim()
-//     const [id] = await db("accounts").insert({name,budget})
-//     return getById(id)
-// }
+const createTodo = (todo) => {
+    console.log(todo)
+    return db
+        .insert(todo)
+        .into("todos")
+        .returning("*")
+        .then(rows => {
+            return rows[0]
+        })
+}
 
-// const updateById = async (id, {name, budget}) => {
-//     await db("accounts").where("id",id).update({name,budget})
-//     return getById(id)
-// }
-
-// const deleteById = async id => {
-//     await db("accounts").where("id",id).delete()
-//     return getById(id)
-// }
+const deleteTodo = async (todo_id) => {
+    const deletedTodo = await getTodo(todo_id) 
+    await db("todos").where({todo_id}).delete()
+    return deletedTodo
+}
 
 module.exports = {
-  getAll,
-//   getById,
-//   create,
-//   updateById,
-//   deleteById,
+    getTodos,
+    createTodo,
+    deleteTodo
 }

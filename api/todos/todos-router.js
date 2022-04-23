@@ -1,9 +1,28 @@
-const router = require('express').Router()
-// const { checkAccountId, checkAccountPayload, checkAccountNameUnique } = require('./accounts-middleware')
+const router = require("express").Router()
 const Todos = require("./todos-model")
 
-router.get('/', (req, res, next) => {
-    Todos.getAll()
+router.get("/:id", ( req, res, next ) => {
+    Todos.getTodos(req.params.id)
+        .then(todos => {
+            console.log(todos)
+            res.status(200).json(todos)
+        }).catch(err => {
+            next(err)
+        })
+})
+
+router.post("/", async ( req, res, next ) => {
+    try{
+        const todo = await Todos.createTodo(req.body)
+        console.log(todo)
+        res.status(201).json(todo)
+    }catch(err){
+        next(err)
+    }
+})
+
+router.delete("/:id", ( req, res, next ) => {
+    Todos.deleteTodo(req.params.id)
         .then(todo => {
             res.status(200).json(todo)
         })
@@ -12,45 +31,4 @@ router.get('/', (req, res, next) => {
         })
 })
 
-// router.get('/:id',checkAccountId,(req, res, next) => {
-//     try{
-//         res.status(200).json(req.account)  
-//     }catch(err){
-//         next(err)
-//     }
-    
-// })
-
-// router.post('/',checkAccountPayload,checkAccountNameUnique, async (req, res, next) => {
-//     try{
-//         const newAccount = await Accounts.create(req.body)
-//         res.status(201).json(newAccount)
-//     }catch(err){
-//         next(err)
-//     }
-// })
-
-// router.put('/:id', checkAccountId,checkAccountPayload,checkAccountNameUnique, async(req, res, next) => {
-//     try{
-//         const updatedAccount = await Accounts.updateById(req.params.id, req.body)
-//         res.status(200).json(updatedAccount)
-//     }catch(err){
-//         next(err)
-//     }
-// });
-
-// router.delete('/:id', checkAccountId,(req, res, next) => {
-//     Accounts.deleteById(req.params.id)
-//         .then(account => {
-//             res.status(200).json(account)
-//         })
-//         .catch(err => {
-//             next(err)
-//         })
-// })
-
-router.use((err, req, res, next) => { 
-    res.status(500).json({ message: err.message, stack: err.stack })
-})
-
-module.exports = router;
+module.exports = router
