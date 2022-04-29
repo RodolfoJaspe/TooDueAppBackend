@@ -37,7 +37,7 @@ router.post('/signup', ValidateUserNameUnique, ValidateRegistration, async (req,
     }catch(err){
         next(err)
     }
-})      ///    done    ///
+})
 
 router.post('/login', ValidateLogin, async (req, res, next) => {
     const { password } = req.body;
@@ -49,7 +49,7 @@ router.post('/login', ValidateLogin, async (req, res, next) => {
     } else {
           next({ status: 401, message: 'Invalid Credentials. Please try again or register!'})
     }
-})      ///    done    ///
+})
 
 router.delete('/:id', (req, res, next) => {
     Users.deleteUser(req.params.id)
@@ -60,42 +60,5 @@ router.delete('/:id', (req, res, next) => {
             next(err)
         })
 })
-
-// router.get('/:id',checkAccountId,(req, res, next) => {
-//     try{
-//         res.status(200).json(req.account)  
-//     }catch(err){
-//         next(err)
-//     }
-    
-// })
-
-// router.post('/',checkAccountPayload,checkAccountNameUnique, async (req, res, next) => {
-//     try{
-//         const newAccount = await Accounts.create(req.body)
-//         res.status(201).json(newAccount)
-//     }catch(err){
-//         next(err)
-//     }
-// })
-
-// router.put('/:id', checkAccountId,checkAccountPayload,checkAccountNameUnique, async(req, res, next) => {
-//     try{
-//         const updatedAccount = await Accounts.updateById(req.params.id, req.body)
-//         res.status(200).json(updatedAccount)
-//     }catch(err){
-//         next(err)
-//     }
-// });
-
-// router.delete('/:id', checkAccountId,(req, res, next) => {
-//     Accounts.deleteById(req.params.id)
-//         .then(account => {
-//             res.status(200).json(account)
-//         })
-//         .catch(err => {
-//             next(err)
-//         })
-// })
 
 module.exports = router;

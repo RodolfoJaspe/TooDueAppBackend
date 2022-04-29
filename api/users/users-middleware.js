@@ -24,14 +24,15 @@ const ValidateUserNameUnique = async (req, res, next) => {
     try {
         const existing = await Users.findBy({ user_name })
         if(existing) {
-            next({ status: 400, message: "Username already exists!"})
+
+            res.status(400).json({message: "Username already exists!"})
         } else {
             next()
         }
     } catch(error) {
         next(error)
     }
-} /// done ///
+} 
 
 
 const ValidateLogin = async (req, res, next) => {
@@ -63,8 +64,6 @@ const ValidateLogin = async (req, res, next) => {
         } else {
             next()
         }
-    }   
-    
-    /// ALREADY VALIDATED IN THE FRONTEND ///
+    }
 
 module.exports = { restricted, ValidateLogin, ValidateUserNameUnique,ValidateRegistration}
