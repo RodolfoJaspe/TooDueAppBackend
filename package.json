@@ -19,8 +19,8 @@
     "deploy": "git push heroku main"
   },
   "engines": {
-    "node": "14.16.1",
-    "npm": "7.23.0"
+    "node": "16.14.0",
+    "npm": "8.3.1"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +28,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.3",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
