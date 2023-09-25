@@ -16,6 +16,8 @@ function findBy(filter){
 }
 
 async function createUser(user) {
+    console.log('signup model')
+
     return db
         .insert(user)
         .into("users")
@@ -28,10 +30,24 @@ async function createUser(user) {
 const deleteUser = async (id) => {
     await db("users").where("user_id",id).delete()
 }
+
+const changePassword = async(id, newPassword) => {
+    user_id = await db("users").where("user_id",id).update({ password: newPassword });
+    return db("users").where({user_id})
+}
+
+const changeUsername = async(id, newUsername) => {
+    user_id = await db("users").where("user_id",id).update({ user_name: newUsername });
+    return db("users").where({user_id})
+}
+
+
 module.exports = {
   getAllUsers,
   getUser,
   createUser,
   deleteUser,
-  findBy
+  findBy,
+  changePassword,
+  changeUsername
 }
