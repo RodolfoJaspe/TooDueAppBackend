@@ -93,4 +93,14 @@ router.put("/:user_id/user_name", (req,res,next) => {
         })
 })
 
+router.put("/:user_id/email", (req,res,next) => {
+    Users.addEmail(req.params.user_id, req.body.email)
+        .then(user => {
+            res.status(200).json(user)
+        })
+        .catch(err => {
+            next(err)
+        })
+})
+
 module.exports = router;

@@ -11,7 +11,7 @@
     "seed": "knex seed:run",
     "migrateup": "knex migrate:up",
     "migratedown": "knex migrate:down",
-    "migrater": "railway run knex migrate:latest -a toodueapp",
+    "migrater": "railway run knex migrate:latest toodueapp",
     "rollbackr": "railway run knex migrate:rollback -a toodueapp",
     "databaser": "railway pg:psql -a toodueapp",
     "seedr": "railway run knex seed:run -a toodueapp",

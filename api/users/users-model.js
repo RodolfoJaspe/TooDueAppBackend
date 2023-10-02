@@ -41,6 +41,11 @@ const changeUsername = async(id, newUsername) => {
     return db("users").where({user_id})
 }
 
+const addEmail = async(id, email) => {
+    user_id = await db('users').where("user_id", id).update({email: email})
+    return db('users').where({user_id})
+}
+
 
 module.exports = {
   getAllUsers,
@@ -49,5 +54,6 @@ module.exports = {
   deleteUser,
   findBy,
   changePassword,
-  changeUsername
+  changeUsername,
+  addEmail
 }
